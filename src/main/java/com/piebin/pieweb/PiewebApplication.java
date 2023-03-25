@@ -11,7 +11,7 @@ public class PiewebApplication {
         SpringApplication.run(PiewebApplication.class, args);
     }
 
-    @RequestMapping("/")
+    @RequestMapping("/home")
     public String home() {
         return "Hello World Spring!";
     }
