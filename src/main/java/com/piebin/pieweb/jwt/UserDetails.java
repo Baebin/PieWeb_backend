@@ -26,12 +26,12 @@ public class UserDetails
 
     @Override
     public String getPassword() {
-        return null;
+        return account.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return account.getName();
     }
 
     @Override

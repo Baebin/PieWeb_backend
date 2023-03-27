@@ -29,13 +29,10 @@ public class Account {
     @NonNull
     private String name;
 
-    @NonNull
     @Column(unique = true)
-    private String nickname;
-
-    @Column(unique = true, nullable = false)
     private String email;
 
+    @Column(unique = true)
     private String number;
 
     @Column(nullable = false)

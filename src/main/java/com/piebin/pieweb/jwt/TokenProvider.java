@@ -4,11 +4,12 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
+
+import lombok.RequiredArgsConstructor;
+
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,7 +25,7 @@ import java.util.List;
 public class TokenProvider {
     // Reference: https://github.com/seongbinko/hanghae99_books
 
-    private String secretKey = "Piebin0505";
+    private String secretKey = "This is Piebin's Secret Code (Birthday: 20040505)";
     private final long VALIDATION_TIME = 1000 * 60 * 30;
     private final UserDetailsService userDetailsService;
 
@@ -61,14 +62,14 @@ public class TokenProvider {
     }
 
     // Request의 Header에서 token 값을 가져옵니다. "X-AUTH-TOKEN" : "TOKEN값'
-    public String resolveToken(HttpServletRequest request) {
+    public String resolve(HttpServletRequest request) {
         return request.getHeader("Authorization");
     }
 
     // 토큰의 유효성 & 만료 일자 확인
-    public boolean validateToken(String jwtToken) {
+    public boolean validate(String token) {
         try {
-            Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwtToken);
+            Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
             return !claims.getBody().getExpiration().before(new Date());
         } catch (Exception e) {
             return false;
