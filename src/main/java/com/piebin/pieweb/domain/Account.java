@@ -42,8 +42,8 @@ public class Account {
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles;
 
-    @CreatedDate
     @JsonIgnore
+    @CreatedDate
     private LocalDateTime signup_date;
 
     public Account(@NonNull String id, String password) {

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 
 @Service
@@ -22,6 +23,7 @@ public class AccountService {
             dto.getId(),
             encoder.encode(dto.getPassword())
         );
+        account.setSignup_date(LocalDateTime.now());
         account.setRoles(Collections.singletonList("ROLE_USER"));
 
         return repository.save(
