@@ -3,18 +3,22 @@ package com.piebin.pieweb.jwt;
 import com.piebin.pieweb.domain.Account;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-public class UserDetails
-        implements org.springframework.security.core.userdetails.UserDetails {
+public class UserDetail implements UserDetails {
     // Reference: https://github.com/seongbinko/hanghae99_books
 
     private final Account account;
 
-    public UserDetails(Account account) {
+    public UserDetail(Account account) {
         this.account = account;
+    }
+
+    public Account getAccount() {
+        return account;
     }
 
     @Override

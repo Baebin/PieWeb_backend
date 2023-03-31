@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -14,6 +15,7 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@EntityListeners(AuditingEntityListener.class)
 @AllArgsConstructor
 @Table(name = "post")
 public class Post {
@@ -36,8 +38,11 @@ public class Post {
     @LastModifiedDate
     private LocalDateTime motified_date;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Account account;
+
     @JsonIgnore
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @Builder.Default
     private Set<Comment> comments = new HashSet<>();
 
@@ -50,4 +55,6 @@ public class Post {
         comments.remove(comment);
         comment.setPost(null);
     }
+
+    public Post() {}
 }

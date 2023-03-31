@@ -1,5 +1,6 @@
 package com.piebin.pieweb.jwt;
 
+import com.piebin.pieweb.controller.PostContoller;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
@@ -8,6 +9,8 @@ import jakarta.servlet.http.HttpServletRequest;
 
 import lombok.RequiredArgsConstructor;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
@@ -17,6 +20,8 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class AuthenticationFilter extends GenericFilterBean {
     // Reference: https://github.com/seongbinko/hanghae99_books
+
+    private static Logger logger = LoggerFactory.getLogger(AuthenticationFilter.class);
 
     private final TokenProvider provider;
 

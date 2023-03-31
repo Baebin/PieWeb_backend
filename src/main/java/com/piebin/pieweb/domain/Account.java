@@ -9,7 +9,9 @@ import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -45,6 +47,16 @@ public class Account {
     @JsonIgnore
     @CreatedDate
     private LocalDateTime signup_date;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER)
+    @Builder.Default
+    private Set<Post> posts = new HashSet<>();
+
+    public void addPost(Post post) {
+        posts.add(post);
+        post.setAccount(this);
+    }
 
     public Account(@NonNull String id, String password) {
         this.id = id;

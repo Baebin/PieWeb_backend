@@ -1,5 +1,6 @@
 package com.piebin.pieweb.jwt;
 
+import com.piebin.pieweb.controller.PostContoller;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -10,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -53,7 +56,7 @@ public class TokenProvider {
     // 인증 성공시 SecurityContextHolder에 저장할 Authentication 객체 생성
     public Authentication getAuthentication(String token) {
         UserDetails details = userDetailsService.loadUserByUsername(getPK(token));
-        return new UsernamePasswordAuthenticationToken(details, "", details.getAuthorities());
+        return new UsernamePasswordAuthenticationToken(details, token, details.getAuthorities());
     }
 
     // 회원 정보 추출
@@ -63,7 +66,7 @@ public class TokenProvider {
 
     // Request의 Header에서 token 값을 가져옵니다. "X-AUTH-TOKEN" : "TOKEN값'
     public String resolve(HttpServletRequest request) {
-        return request.getHeader("Authorization");
+            return request.getHeader("Authorization");
     }
 
     // 토큰의 유효성 & 만료 일자 확인
