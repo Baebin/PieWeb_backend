@@ -1,6 +1,5 @@
 package com.piebin.pieweb.service;
 
-import com.piebin.pieweb.controller.PostContoller;
 import com.piebin.pieweb.domain.Account;
 import com.piebin.pieweb.domain.Post;
 import com.piebin.pieweb.dto.PostSaveRequestDto;
@@ -26,7 +25,7 @@ public class PostService {
         logger.info(dto.getTitle() + " " + dto.getDescription());
         logger.info(account.getId());
         return repository.save(
-            post
+                post
         );
     }
 }
